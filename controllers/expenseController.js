@@ -90,6 +90,20 @@ class expenseController {
         }
     }
 
+    static async fetchCategories(req, res, next) {
+        try {
+            let categories = await Category.findAll({
+                attributes: {
+                    exclude: [`createdAt`, `updatedAt`]
+                }
+            })
+            res.status(200).json(categories)
+
+        } catch (err) {
+            next(err)
+        }
+    }
+
 }
 
 module.exports = expenseController

@@ -29,7 +29,11 @@ class userController {
                 password,
                 status: `regular`
             })
-            res.status(201).json({ id: userData.id, email: userData.email })
+            res.status(201).json({
+                id: userData.id,
+                email: userData.email,
+                status: userData.status
+            })
         } catch (error) {
             next(error)
         }
@@ -84,9 +88,11 @@ class userController {
             serverKey: 'SB-Mid-server-SC7zBrxrjBP-xWwv1TtMwQC-'
         });
 
+        let random = Math.random() * 100
+
         let parameter = {
             "transaction_details": {
-                "order_id": `Premium Expense Tracker-107`,
+                "order_id": `Premium Expense Tracker-${random}`,
                 // "order_id": `Premium account-user-${userId}`,
                 "gross_amount": 50000
             },
