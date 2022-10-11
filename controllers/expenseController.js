@@ -25,7 +25,7 @@ class expenseController {
             })
             res.status(200).json(myExpenses)
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             next(error)
 
         }
@@ -98,7 +98,6 @@ class expenseController {
                 }
             })
             res.status(200).json(categories)
-
         } catch (err) {
             next(err)
         }

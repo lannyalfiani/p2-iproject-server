@@ -24,7 +24,7 @@ class userController {
             })
 
 
-            nodemailer(email)
+            // nodemailer(email)
 
             res.status(201).json({
                 id: userData.id,
