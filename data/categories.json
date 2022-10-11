@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Bills"
+    },
+    {
+        "name": "Groceries"
+    },
+    {
+        "name": "Transportation"
+    },
+    {
+        "name": "Food delivery"
+    },
+    {
+        "name": "Others"
+    }
+]

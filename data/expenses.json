@@ -1,0 +1,86 @@
+[
+    {
+        "name": "Electricity for October",
+        "amount": 100000,
+        "CategoryId": 1,
+        "UserId": 1,
+        "date": "2022-09-10"
+    },
+    {
+        "name": "Fuel 100 liters",
+        "amount": 50000,
+        "CategoryId": 2,
+        "UserId": 1,
+        "date": "2022-09-10"
+    },
+    {
+        "name": "Chinese food dinner",
+        "amount": 550000,
+        "CategoryId": 4,
+        "UserId": 1,
+        "date": "2022-09-10"
+    },
+    {
+        "name": "Water bills",
+        "amount": 200000,
+        "CategoryId": 1,
+        "UserId": 1,
+        "date": "2022-09-10"
+    },
+    {
+        "name": "Monthly parking fee",
+        "amount": 10000,
+        "CategoryId": 1,
+        "UserId": 1,
+        "date": "2022-09-10"
+    },
+    {
+        "name": "Skincare",
+        "amount": 400000,
+        "CategoryId": 2,
+        "UserId": 1,
+        "date": "2022-09-10"
+    },
+    {
+        "name": "Gojek to office",
+        "amount": 30000,
+        "CategoryId": 3,
+        "UserId": 1,
+        "date": "2022-09-10"
+    },
+    {
+        "name": "Monthly arisan",
+        "amount": 550000,
+        "CategoryId": 1,
+        "UserId": 1,
+        "date": "2022-09-10"
+    },
+    {
+        "name": "Malibu vacation",
+        "amount": 20000000,
+        "CategoryId": 3,
+        "UserId": 2,
+        "date": "2022-09-10"
+    },
+    {
+        "name": "Fruits",
+        "amount": 300000,
+        "CategoryId": 1,
+        "UserId": 1,
+        "date": "2022-09-10"
+    },
+    {
+        "name": "Gojek to Delta",
+        "amount": 35000,
+        "CategoryId": 3,
+        "UserId": 1,
+        "date": "2022-09-10"
+    },
+    {
+        "name": "Coffee",
+        "amount": 50000,
+        "CategoryId": 1,
+        "UserId": 1,
+        "date": "2022-09-10"
+    }
+]
