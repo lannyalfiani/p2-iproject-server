@@ -16,14 +16,22 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Expense.init({
-    type: DataTypes.STRING,
-    allowNull: false,
-    validate: {
-      notNull: {
-        msg: `Expense name is required`
-      },
-      notEmpty: {
-        msg: `Expense name is required`
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: `Expense name is required`
+        },
+        notEmpty: {
+          msg: `Expense name is required`
+        }
       }
     },
     amount: {
