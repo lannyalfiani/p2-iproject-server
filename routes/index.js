@@ -17,9 +17,9 @@ router.use(authentication)
 
 router.use(`/expenses`, expenseRouter)
 
-// router.post(`/payments`, userController.payments)
-
 router.post(`/payments`, userController.snapPayment)
+
+router.patch(`/premium/:id`, userController.updatePremium)
 
 
 

@@ -58,7 +58,7 @@ class userController {
             }
 
             let payload = {
-                id: userToLogin.id,
+                id: userToLogin.id,  //! udah kasih id ke client
                 username: userToLogin.username,
                 email: userToLogin.email,
                 status: userToLogin.status
@@ -73,8 +73,8 @@ class userController {
 
     static snapPayment(req, res, next) {
 
-        let userId = req.user.id
-
+        let userId = req.user.id //! buat trx id ke midtrans
+        console.log(req.user);
         const midtransClient = require('midtrans-client');
         // Create Snap API instance
         let snap = new midtransClient.Snap({
@@ -84,8 +84,8 @@ class userController {
 
         let parameter = {
             "transaction_details": {
-                // "order_id": `Premium account Expense Tracker-${userId}`,
                 "order_id": `Premium account Expense Tracker-101`,
+                // "order_id": `Premium account-userId-${userId}`,
                 "gross_amount": 50000
             },
             "credit_card": {
@@ -93,9 +93,9 @@ class userController {
             },
             "customer_details": {
                 "first_name": `${req.user.username}`,
-                "last_name": "alfiani",
+                // "last_name": "alfiani",
                 "email": `${req.user.email}`,
-                "phone": "0851617509033"
+                // "phone": "0851617509033"
             }
         };
         snap.createTransaction(parameter)
@@ -109,6 +109,24 @@ class userController {
             .catch((err) => {
                 next(err)
             })
+    }
+
+
+
+    static async updatePremium(req, res, next) {
+        try {
+            //! update user status to premium
+            //? Sequelize update status where user id segini
+            let premium = await User.update({ status: `premium` }, {
+                where: {
+                    id: req.user.id
+                }
+            })
+            console.log(premium);
+            res.status(200).json({ message: `Status updated` })
+        } catch (err) {
+            next(err)
+        }
     }
 
 
