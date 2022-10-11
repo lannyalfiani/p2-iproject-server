@@ -74,7 +74,9 @@ class userController {
     static snapPayment(req, res, next) {
 
         let userId = req.user.id //! buat trx id ke midtrans
-        console.log(req.user);
+
+        // console.log(req.user); // { id: 1, email: 'user@gmail.com', status: 'regular', username: 'user' }
+
         const midtransClient = require('midtrans-client');
         // Create Snap API instance
         let snap = new midtransClient.Snap({
@@ -84,8 +86,8 @@ class userController {
 
         let parameter = {
             "transaction_details": {
-                "order_id": `Premium account Expense Tracker-101`,
-                // "order_id": `Premium account-userId-${userId}`,
+                "order_id": `Premium Expense Tracker-107`,
+                // "order_id": `Premium account-user-${userId}`,
                 "gross_amount": 50000
             },
             "credit_card": {
@@ -107,6 +109,7 @@ class userController {
                 res.status(201).json({ transactionToken: transactionToken })
             })
             .catch((err) => {
+                console.log(err.ApiResponse);
                 next(err)
             })
     }
@@ -115,14 +118,16 @@ class userController {
 
     static async updatePremium(req, res, next) {
         try {
+            let UserId = req.params.id
+            console.log(UserId);
+
             //! update user status to premium
             //? Sequelize update status where user id segini
-            let premium = await User.update({ status: `premium` }, {
+            await User.update({ status: `premium` }, {
                 where: {
-                    id: req.user.id
+                    id: UserId
                 }
             })
-            console.log(premium);
             res.status(200).json({ message: `Status updated` })
         } catch (err) {
             next(err)
