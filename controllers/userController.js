@@ -3,14 +3,7 @@ const { signPayloadIntoToken } = require("../helpers/jwt")
 const { User } = require(`../models`)
 
 const axios = require(`axios`)
-
-// const midtransClient = require('midtrans-client')
-
-// let snap = new midtransClient.Snap({
-//     isProduction: false,
-//     serverKey: 'SB-Mid-server-SC7zBrxrjBP-xWwv1TtMwQC-',
-//     clientKey: 'SB-Mid-client-jgPpUBjZXarlGCpk'
-// });
+const nodemailer = require("../helpers/nodemailer")
 
 
 class userController {
@@ -29,6 +22,10 @@ class userController {
                 password,
                 status: `regular`
             })
+
+
+            nodemailer(email)
+
             res.status(201).json({
                 id: userData.id,
                 email: userData.email,
@@ -38,6 +35,32 @@ class userController {
             next(error)
         }
     }
+
+
+    //! BACKUP REGISTER
+    // static async register(req, res, next) {
+    //     try {
+    //         let {
+    //             username,
+    //             email,
+    //             password,
+    //         } = req.body
+
+    //         let userData = await User.create({
+    //             username,
+    //             email,
+    //             password,
+    //             status: `regular`
+    //         })
+    //         res.status(201).json({
+    //             id: userData.id,
+    //             email: userData.email,
+    //             status: userData.status
+    //         })
+    //     } catch (error) {
+    //         next(error)
+    //     }
+    // }
 
     static async login(req, res, next) {
         try {
