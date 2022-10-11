@@ -59,13 +59,13 @@ class userController {
 
             let payload = {
                 id: userToLogin.id,
+                username: userToLogin.username,
                 email: userToLogin.email,
                 status: userToLogin.status
             }
 
             let access_token = signPayloadIntoToken(payload)
             res.status(200).json({ access_token, userData: payload })
-
         } catch (error) {
             next(error)
         }
@@ -73,37 +73,42 @@ class userController {
 
     static snapPayment(req, res, next) {
 
+        let userId = req.user.id
+
         const midtransClient = require('midtrans-client');
         // Create Snap API instance
         let snap = new midtransClient.Snap({
-            // Set to true if you want Production Environment (accept real transaction).
             isProduction: false,
             serverKey: 'SB-Mid-server-SC7zBrxrjBP-xWwv1TtMwQC-'
         });
 
         let parameter = {
             "transaction_details": {
-                "order_id": "Premium account Expense Tracker",
+                // "order_id": `Premium account Expense Tracker-${userId}`,
+                "order_id": `Premium account Expense Tracker-101`,
                 "gross_amount": 50000
             },
             "credit_card": {
                 "secure": true
             },
             "customer_details": {
-                "first_name": "lanny",
+                "first_name": `${req.user.username}`,
                 "last_name": "alfiani",
-                "email": "lannyalfiani13@gmail.com",
+                "email": `${req.user.email}`,
                 "phone": "0851617509033"
             }
         };
-
         snap.createTransaction(parameter)
             .then((transaction) => {
                 let transactionToken = transaction.token;
                 console.log('transactionToken:', transactionToken);
-            })
 
-        //! udh dapet transactionToken: ee65b28c-4bc4-4cf3-8acd-a67d46787919
+                //! trx token buat client
+                res.status(201).json({ transactionToken: transactionToken })
+            })
+            .catch((err) => {
+                next(err)
+            })
     }
 
 

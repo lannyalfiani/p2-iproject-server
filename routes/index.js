@@ -13,7 +13,7 @@ router.get('/', (req, res, next) => {
 router.post(`/register`, userController.register)
 router.post(`/login`, userController.login)
 
-// router.use(authentication)
+router.use(authentication)
 
 router.use(`/expenses`, expenseRouter)
 
