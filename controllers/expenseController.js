@@ -1,5 +1,5 @@
 const { User, Expense, Category } = require(`../models`)
-
+const pdfService = require(`../helpers/pdfservice`)
 
 class expenseController {
 
@@ -102,6 +102,26 @@ class expenseController {
         } catch (err) {
             next(err)
         }
+    }
+
+    static PDFReports(req, res, next) {
+        // const stream = res.status(200, {
+        //     'Content-Type': 'application/pdf',
+        //     'Content-Disposition': 'attachment;filename=report.pdf'
+        // })
+
+        // pdfService.buildPDF(
+        //     (chunk) => stream.write(chunk),
+        //     () => stream.end()
+        // )
+        const stream = res.writeHead(200, {
+            'Content-Type': 'application/pdf',
+            'Content-Disposition': `attachment;filename=invoice.pdf`,
+        });
+        pdfService.buildPDF(
+            (chunk) => stream.write(chunk),
+            () => stream.end()
+        );
     }
 
 }
