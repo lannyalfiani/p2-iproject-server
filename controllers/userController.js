@@ -22,9 +22,7 @@ class userController {
                 password,
                 status: `regular`
             })
-
-
-            // nodemailer(email)
+            nodemailer(email, username)
 
             res.status(201).json({
                 id: userData.id,
