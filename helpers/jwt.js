@@ -1,7 +1,7 @@
 const jwt = require(`jsonwebtoken`)
 
 
-const secretKey = `rahasia`
+const secretKey = process.env.SECRETKEY
 
 const signPayloadIntoToken = (payload) => jwt.sign(payload, secretKey)
 const verifyTokenIntoPayload = (token) => jwt.verify(token, secretKey)

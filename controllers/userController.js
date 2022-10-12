@@ -57,7 +57,7 @@ class userController {
             }
 
             let payload = {
-                id: userToLogin.id,  //! udah kasih id ke client
+                id: userToLogin.id, 
                 username: userToLogin.username,
                 email: userToLogin.email,
                 status: userToLogin.status
@@ -72,15 +72,11 @@ class userController {
 
     static snapPayment(req, res, next) {
 
-        let userId = req.user.id //! buat trx id ke midtrans
-
-        // console.log(req.user); // { id: 1, email: 'user@gmail.com', status: 'regular', username: 'user' }
-
         const midtransClient = require('midtrans-client');
-        // Create Snap API instance
+
         let snap = new midtransClient.Snap({
             isProduction: false,
-            serverKey: 'SB-Mid-server-SC7zBrxrjBP-xWwv1TtMwQC-'
+            serverKey: process.env.serverKey
         });
 
         let random = Math.random() * 100
@@ -95,42 +91,33 @@ class userController {
             },
             "customer_details": {
                 "first_name": `${req.user.username}`,
-                // "last_name": "alfiani",
                 "email": `${req.user.email}`,
-                // "phone": "0851617509033"
             }
         };
         snap.createTransaction(parameter)
             .then((transaction) => {
                 let transactionToken = transaction.token;
-                console.log('transactionToken:', transactionToken);
 
-                //! trx token buat client
                 res.status(201).json({ transactionToken: transactionToken })
             })
-            .catch((err) => {
-                console.log(err.ApiResponse);
-                next(err)
+            .catch((error) => {
+                next(error)
             })
     }
-
-
 
     static async updatePremium(req, res, next) {
         try {
             let UserId = req.params.id
             console.log(UserId);
 
-            //! update user status to premium
-            //? Sequelize update status where user id segini
             await User.update({ status: `premium` }, {
                 where: {
                     id: UserId
                 }
             })
             res.status(200).json({ message: `Status updated` })
-        } catch (err) {
-            next(err)
+        } catch (error) {
+            next(error)
         }
     }
 
@@ -141,8 +128,8 @@ class userController {
                 url: `https://jakpost.vercel.app/api/category/business/economy`
             })
             res.status(200).json(data)
-        } catch (err) {
-            next(err)
+        } catch (error) {
+            next(error)
         }
     }
 
