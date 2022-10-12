@@ -13,6 +13,9 @@ class expenseController {
                 where: {
                     UserId
                 },
+                order: [
+                    [`createdAt`, `DESC`]
+                ],
                 attributes: {
                     exclude: [`createdAt`, `updatedAt`, `CategoryId`]
                 },
@@ -134,11 +137,6 @@ class expenseController {
                 where: {
                     UserId
                 },
-                // attributes: [
-                //     `UserId`,
-                //     [sequelize.fn('sum', sequelize.col('amount')), 'total_amount'],
-                // ],
-                // group: ['UserId', 'CategoryId'],
                 include: {
                     model: Category
                 }
@@ -154,22 +152,9 @@ class expenseController {
                 obj[el.Category.name] += el.amount
             })
 
-
-
-            // const totalAmount = await DONATIONS.findAll({
-            //     attributes: [
-            //         'member_id',
-            //         [sequelize.fn('sum', sequelize.col('amount')), 'total_amount'],
-            //     ],
-            //     group: ['member_id'],
-            // });
-
-
             res.status(200).json(obj)
         } catch (error) {
-            // console.log(error);
             next(error)
-
         }
     }
 
