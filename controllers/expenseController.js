@@ -104,6 +104,7 @@ class expenseController {
     }
 
     static PDFReports(req, res, next) {
+        console.log(req.query)
         // const stream = res.status(200, {
         //     'Content-Type': 'application/pdf',
         //     'Content-Disposition': 'attachment;filename=report.pdf'

@@ -22,8 +22,6 @@ class userController {
                 password,
                 status: `regular`
             })
-
-
             nodemailer(email, username)
 
             res.status(201).json({

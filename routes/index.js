@@ -10,12 +10,12 @@ router.get('/', (req, res, next) => {
 })
 
 
+router.get(`/reports`, expenseController.PDFReports)
 
 router.post(`/register`, userController.register)
 router.post(`/login`, userController.login)
 
 router.use(authentication)
-router.get(`/reports`, expenseController.PDFReports)
 
 router.get(`/categories`, expenseController.fetchCategories)
 
