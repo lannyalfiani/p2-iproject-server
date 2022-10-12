@@ -34,32 +34,6 @@ class userController {
         }
     }
 
-
-    //! BACKUP REGISTER
-    // static async register(req, res, next) {
-    //     try {
-    //         let {
-    //             username,
-    //             email,
-    //             password,
-    //         } = req.body
-
-    //         let userData = await User.create({
-    //             username,
-    //             email,
-    //             password,
-    //             status: `regular`
-    //         })
-    //         res.status(201).json({
-    //             id: userData.id,
-    //             email: userData.email,
-    //             status: userData.status
-    //         })
-    //     } catch (error) {
-    //         next(error)
-    //     }
-    // }
-
     static async login(req, res, next) {
         try {
             let { email, password } = req.body
@@ -114,7 +88,6 @@ class userController {
         let parameter = {
             "transaction_details": {
                 "order_id": `Premium Expense Tracker-${random}`,
-                // "order_id": `Premium account-user-${userId}`,
                 "gross_amount": 50000
             },
             "credit_card": {
@@ -182,41 +155,3 @@ class userController {
 
 
 module.exports = userController
-
-
-
-// const Xendit = require('xendit-node');
-// const x = new Xendit({
-//     secretKey: 'xnd_development_mNhag0qcBB7aatdATALB76WlUAiTPtOBt2iLQvLc9Gx6xnTTUm21b9Dvcy1zg',
-// });
-
-// API Key: xnd_development_mNhag0qcBB7aatdATALB76WlUAiTPtOBt2iLQvLc9Gx6xnTTUm21b9Dvcy1zg
-
-// const { VirtualAcc } = x;
-// const vaSpecificOptions = {};
-// const va = new VirtualAcc(vaSpecificOptions);
-//     static async payments(req, res, next) {
-//     // console.log(`ok`);
-//     // console.log(x);
-//     const { Invoice } = x;
-//     try {
-//         //! pake payment link / invoice
-//         const invoiceSpecificOptions = {};
-//         const i = new Invoice(invoiceSpecificOptions);
-
-//         const resp = await i.createInvoice(
-//             {
-//                 externalID: 'premium account',
-//                 payerEmail: 'user@gmail.co',
-//                 description: 'Purchaseremium account',
-//                 amount: 50000,
-//                 payment_methods: ["OVO"]
-//             }
-//         )
-
-//         console.log(resp);
-//     } catch (err) {
-//         console.log(err);
-//         next(err)
-//     }
-// }
