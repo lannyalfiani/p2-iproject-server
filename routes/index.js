@@ -14,6 +14,7 @@ router.get(`/reports`, expenseController.PDFReports)
 
 router.post(`/register`, userController.register)
 router.post(`/login`, userController.login)
+router.get(`/news`, userController.fetchNews)
 
 router.use(authentication)
 
@@ -22,12 +23,9 @@ router.get(`/categories`, expenseController.fetchCategories)
 router.use(`/expenses`, expenseRouter)
 
 
-
-
 router.post(`/payments`, userController.snapPayment)
 
 router.patch(`/premium/:id`, userController.updatePremium)
-
 
 
 

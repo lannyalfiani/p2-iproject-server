@@ -161,6 +161,18 @@ class userController {
         }
     }
 
+    static async fetchNews(req, res, next) {
+        try {
+            let { data } = await axios({
+                method: `GET`,
+                url: `https://jakpost.vercel.app/api/category/business/economy`
+            })
+            res.status(200).json(data)
+        } catch (err) {
+            next(err)
+        }
+    }
+
 
 
 

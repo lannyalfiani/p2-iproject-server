@@ -13,6 +13,9 @@ class expenseController {
                 where: {
                     UserId
                 },
+                order: [
+                    [`createdAt`, `DESC`]
+                ],
                 attributes: {
                     exclude: [`createdAt`, `updatedAt`, `CategoryId`]
                 },
