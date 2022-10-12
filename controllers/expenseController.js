@@ -1,11 +1,14 @@
+if (process.env.NODE_ENV !== `production`) {
+    require('dotenv').config()
+}
+
+
 const { User, Expense, Category, sequelize } = require(`../models`)
 const pdfService = require(`../helpers/pdfservice`)
 
 class expenseController {
 
     static async myExpenses(req, res, next) {
-        // console.log(req.user);
-        // { id: 1, email: 'user@gmail.com', status: 'regular' }
         try {
             let UserId = req.user.id
 
@@ -28,9 +31,7 @@ class expenseController {
             })
             res.status(200).json(myExpenses)
         } catch (error) {
-            // console.log(error);
             next(error)
-
         }
     }
 
@@ -54,7 +55,6 @@ class expenseController {
                 name: newExpense.name
             })
         } catch (error) {
-            console.log(error);
             next(error)
         }
     }
@@ -68,7 +68,6 @@ class expenseController {
             })
             res.status(200).json({ message: `Success deleting expense from your expenses` })
         } catch (error) {
-            console.log(error);
             next(error)
         }
     }
@@ -88,7 +87,6 @@ class expenseController {
             })
             res.status(200).json({ message: `Success updating your expense` })
         } catch (error) {
-            console.log(error);
             next(error)
         }
     }
@@ -101,32 +99,23 @@ class expenseController {
                 }
             })
             res.status(200).json(categories)
-        } catch (err) {
-            next(err)
+        } catch (error) {
+            next(error)
         }
     }
 
     static PDFReports(req, res, next) {
-        console.log(req.query)
-        // const stream = res.status(200, {
-        //     'Content-Type': 'application/pdf',
-        //     'Content-Disposition': 'attachment;filename=report.pdf'
-        // })
+        // console.log(req.query)
 
-        // pdfService.buildPDF(
-        //     (chunk) => stream.write(chunk),
-        //     () => stream.end()
-        // )
         const stream = res.writeHead(200, {
             'Content-Type': 'application/pdf',
-            'Content-Disposition': `attachment;filename=invoice.pdf`,
+            'Content-Disposition': `attachment;filename=XPense-premium-invoice.pdf`,
         });
         pdfService.buildPDF(
             (chunk) => stream.write(chunk),
             () => stream.end()
         );
     }
-
 
     static async pieChart(req, res, next) {
         //! butuh array of numbers isinya 5 (category yg di sum)

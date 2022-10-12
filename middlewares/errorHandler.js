@@ -1,5 +1,5 @@
 function errorHandler(err, req, res, next) {
-    console.log(err);
+    // console.log(err);
     let code = 500
     let message = `Internal server error`
 
@@ -30,7 +30,7 @@ function errorHandler(err, req, res, next) {
         message = `You are not authorized to do this action`
     } else if (err.name === `SequelizeDatabaseError`) {
         code = 400
-        message = `salah query`
+        message = err.errors[0].message
     }
 
     res.status(code).json({ message })

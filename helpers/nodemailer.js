@@ -5,13 +5,12 @@ var nodemailer = require('nodemailer');
 "use strict";
 
 async function main(email, username) {
-    // let testAccount = await nodemailer.createTestAccount();
 
     let transporter = nodemailer.createTransport({
         service: `gmail`,
         auth: {
-            user: `lannyalfiani13@gmail.com`,
-            pass: `egvgiwgumuqzhhbs`,
+            user: process.env.user,
+            pass: process.env.pass,
         },
     });
 
@@ -28,11 +27,7 @@ async function main(email, username) {
         <p>Regards, </p>
         <a href="https://freeimage.host/"><img width="50" src="https://iili.io/ZKXtYg.png" alt="ZKXtYg.png" border="0"></a>`,
     });
-    // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
 
-    // Preview only available when sending through an Ethereal account
-    // console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-    // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
 }
 
 module.exports = main
