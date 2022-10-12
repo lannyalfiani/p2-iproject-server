@@ -1,4 +1,4 @@
-const { User, Expense, Category } = require(`../models`)
+const { User, Expense, Category, sequelize } = require(`../models`)
 const pdfService = require(`../helpers/pdfservice`)
 
 class expenseController {
@@ -123,6 +123,56 @@ class expenseController {
             () => stream.end()
         );
     }
+
+
+    static async pieChart(req, res, next) {
+        //! butuh array of numbers isinya 5 (category yg di sum)
+        try {
+            let UserId = req.user.id
+
+            let data = await Expense.findAll({
+                where: {
+                    UserId
+                },
+                // attributes: [
+                //     `UserId`,
+                //     [sequelize.fn('sum', sequelize.col('amount')), 'total_amount'],
+                // ],
+                // group: ['UserId', 'CategoryId'],
+                include: {
+                    model: Category
+                }
+            })
+
+            let obj = {}
+
+            data.forEach(el => {
+                if (!obj[el.Category.name]) {
+                    obj[el.Category.name] = 0
+                }
+
+                obj[el.Category.name] += el.amount
+            })
+
+
+
+            // const totalAmount = await DONATIONS.findAll({
+            //     attributes: [
+            //         'member_id',
+            //         [sequelize.fn('sum', sequelize.col('amount')), 'total_amount'],
+            //     ],
+            //     group: ['member_id'],
+            // });
+
+
+            res.status(200).json(obj)
+        } catch (error) {
+            // console.log(error);
+            next(error)
+
+        }
+    }
+
 
 }
 

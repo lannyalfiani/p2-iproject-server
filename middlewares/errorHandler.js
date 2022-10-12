@@ -3,7 +3,7 @@ function errorHandler(err, req, res, next) {
     let code = 500
     let message = `Internal server error`
 
-    if (err.name === "SequelizeValidationError" || err.name === `SequelizeDatabaseError` || err.name === `SequelizeUniqueConstraintError`) {
+    if (err.name === "SequelizeValidationError" || err.name === `SequelizeUniqueConstraintError`) {
         // code = 400
         // message = err.errors[0].message
         code = 400;
@@ -28,6 +28,9 @@ function errorHandler(err, req, res, next) {
     } else if (err.name === `FORBIDDEN`) {
         code = 403
         message = `You are not authorized to do this action`
+    } else if (err.name === `SequelizeDatabaseError`) {
+        code = 400
+        message = `salah query`
     }
 
     res.status(code).json({ message })
