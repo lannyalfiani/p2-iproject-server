@@ -22,6 +22,7 @@ async function authentication(req, res, next) {
             id: user.id,
             email: user.email,
             status: user.status,
+            username: user.username
         }
         next()
     } catch (error) {

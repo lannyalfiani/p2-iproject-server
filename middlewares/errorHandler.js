@@ -1,5 +1,5 @@
 function errorHandler(err, req, res, next) {
-    // console.log(err + `<<<< error handler`);
+    console.log(err);
     let code = 500
     let message = `Internal server error`
 
@@ -16,12 +16,9 @@ function errorHandler(err, req, res, next) {
     } else if (err.name === `INVALID_INPUT`) {
         code = 400
         message = `Email or password is required!`
-    } else if (err.name === `INVALID_USER`) {
+    } else if (err.name === `INVALID_USER` || err.name === `Invalid token`) {
         code = 401;
         message = `Invalid email or password`;
-    } else if (err.name === `CATEGORY_EXISTS`) {
-        code = 409;
-        message = `Category ${err.input} already exists`;
     } else if (err.name === `INVALID_CATEGORY`) {
         code = 404
         message = `Category doesn't exist`

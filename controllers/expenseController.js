@@ -1,5 +1,5 @@
 const { User, Expense, Category } = require(`../models`)
-
+const pdfService = require(`../helpers/pdfservice`)
 
 class expenseController {
 
@@ -25,7 +25,7 @@ class expenseController {
             })
             res.status(200).json(myExpenses)
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             next(error)
 
         }
@@ -88,6 +88,39 @@ class expenseController {
             console.log(error);
             next(error)
         }
+    }
+
+    static async fetchCategories(req, res, next) {
+        try {
+            let categories = await Category.findAll({
+                attributes: {
+                    exclude: [`createdAt`, `updatedAt`]
+                }
+            })
+            res.status(200).json(categories)
+        } catch (err) {
+            next(err)
+        }
+    }
+
+    static PDFReports(req, res, next) {
+        // const stream = res.status(200, {
+        //     'Content-Type': 'application/pdf',
+        //     'Content-Disposition': 'attachment;filename=report.pdf'
+        // })
+
+        // pdfService.buildPDF(
+        //     (chunk) => stream.write(chunk),
+        //     () => stream.end()
+        // )
+        const stream = res.writeHead(200, {
+            'Content-Type': 'application/pdf',
+            'Content-Disposition': `attachment;filename=invoice.pdf`,
+        });
+        pdfService.buildPDF(
+            (chunk) => stream.write(chunk),
+            () => stream.end()
+        );
     }
 
 }
