@@ -11,6 +11,8 @@ List of Available Endpoints:
 8. `POST /expenses`
 9. `DELETE /expenses/:id`
 10. `PATCH /expenses/:id`
+11. `GET /news`
+12. `GET /pie`
 
 <!-- POST REGISTER -->
 ## 1. POST /register
@@ -169,7 +171,7 @@ _200 - OK_
 
  ## 5. GET /reports
 ### Description
-- Get PDF Report (tentative with report table)
+- Get payment invoice as PDF
 
 #### Request
 
@@ -182,8 +184,8 @@ _200 - OK_
 
 
 #### Response
-
-PDF
+_200 - OK_
+- Body: PDF
 
  <br> 
 
@@ -333,7 +335,7 @@ _200 - OK_
 
  <br> 
 
-## 9. PATCH /expenses/:id
+## 10. PATCH /expenses/:id
 ### Description
 - Edit logged in user's expense
 
@@ -362,6 +364,61 @@ _200 - OK_
     ```json
     {
         "message": String,
+    }
+    ```
+
+
+ <br> 
+
+---
+
+ <br> 
+
+### 11. GET /news
+
+#### Response
+_200 - OK_
+- Body
+    ```json
+    [
+        {
+            "id": Integer,
+            "name": String
+        },
+        ...
+    ]
+    ```
+
+
+ <br> 
+
+---
+
+ <br> 
+
+
+## 10. GET /pie
+### Description
+- Get sum of total expense based on category
+
+#### Request
+
+- Headers
+    ```json
+    {
+      "Content-Type": "application/x-www-form-urlencoded"
+    }
+    ```
+
+
+#### Response
+_200 - OK_
+- Body
+    ```json
+    {
+        "Category Name": String,
+        "Category Name": String,
+        ....
     }
     ```
 
