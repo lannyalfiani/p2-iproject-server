@@ -21,6 +21,9 @@ router.get(`/categories`, expenseController.fetchCategories)
 
 router.use(`/expenses`, expenseRouter)
 
+
+
+
 router.post(`/payments`, userController.snapPayment)
 
 router.patch(`/premium/:id`, userController.updatePremium)
