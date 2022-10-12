@@ -13,9 +13,9 @@ router.get('/', (req, res, next) => {
 
 router.post(`/register`, userController.register)
 router.post(`/login`, userController.login)
-router.get(`/reports`, expenseController.PDFReports)
 
 router.use(authentication)
+router.get(`/reports`, expenseController.PDFReports)
 
 router.get(`/categories`, expenseController.fetchCategories)
 
