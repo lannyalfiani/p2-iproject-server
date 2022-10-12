@@ -6,11 +6,11 @@ const { deleteExpense, editExpense } = require(`../middlewares/authorization`)
 
 
 router.get(`/`, expenseController.myExpenses)
+router.post(`/`, expenseController.addExpenses)
 
 router.get(`/pie`, expenseController.pieChart)
 
 
-router.post(`/`, expenseController.addExpenses)
 router.delete(`/:id`, deleteExpense, expenseController.deleteMyExpense)
 router.patch(`/:id`, editExpense, expenseController.updateMyExpense)
 
