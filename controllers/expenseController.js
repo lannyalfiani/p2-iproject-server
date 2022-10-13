@@ -119,10 +119,16 @@ class expenseController {
 
     static async pieChart(req, res, next) {
         //! butuh array of numbers isinya 5 (category yg di sum)
+
+        // data = {
+        //     labels: [catName1, catName2],
+        //     data: [10, 11]
+        //     }
+
         try {
             let UserId = req.user.id
 
-            let data = await Expense.findAll({
+            let raw = await Expense.findAll({
                 where: {
                     UserId
                 },
@@ -133,7 +139,7 @@ class expenseController {
 
             let obj = {}
 
-            data.forEach(el => {
+            raw.forEach(el => {
                 if (!obj[el.Category.name]) {
                     obj[el.Category.name] = 0
                 }
@@ -141,8 +147,65 @@ class expenseController {
                 obj[el.Category.name] += el.amount
             })
 
-            res.status(200).json(obj)
+            const formattedData = {
+                labels: [],
+                data: []
+            }
+
+            for (const key in obj) {
+                formattedData.labels.push(key)
+                formattedData.data.push(obj[key])
+            }
+
+            //! ARRAY
+            // let labels = []
+
+            // let data = []
+
+            // raw.forEach(el => {
+            //     labels.push(el.Category.name)
+            //     data.push(el.amount)
+            //     return el
+            // })
+
+            // let formattedData = {
+            //     labels,
+            //     data
+            // }
+
+            // {
+            //     "labels": [
+            //         "Food delivery",
+            //         "Bills",
+            //         "Bills",
+            //         "Groceries",
+            //         "Transportation",
+            //         "Bills",
+            //         "Bills",
+            //         "Transportation",
+            //         "Bills",
+            //         "Groceries",
+            //         "Groceries"
+            //     ],
+            //     "data": [
+            //         550000,
+            //         200000,
+            //         10000,
+            //         400000,
+            //         30000,
+            //         550000,
+            //         300000,
+            //         35000,
+            //         50000,
+            //         10000,
+            //         1
+            //     ]
+            // }
+
+            // res.status(200).json(obj)
+            res.status(200).json(formattedData)
         } catch (error) {
+            console.log(error);
             next(error)
         }
     }
